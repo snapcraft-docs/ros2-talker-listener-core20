@@ -11,7 +11,8 @@ on:
 
 jobs:
   content-sharing-snap:
-    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@main
+    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@F_add_snapcraft_args
     with:
       branch-name: content-sharing
       snap-name: ros2-talker-listener
+      snapcraft-args: --enable-experimental-extensions
