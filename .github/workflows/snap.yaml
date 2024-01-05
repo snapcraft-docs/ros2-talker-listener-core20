@@ -1,34 +1,17 @@
 name: snap
 on:
-  schedule:
-    - cron: '0 0 1 * *'
   push:
-    tags:
-      - '*'
     branches:
-      - main
+      - content-sharing
   pull_request:
     branches:
-      - main
+      - content-sharing
   workflow_dispatch:
+  workflow_call:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    outputs:
-      snap-file: ${{ steps.build-snap.outputs.snap }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: snapcore/action-build@v1
-      id: build-snap
-
-    # Make sure the snap is installable
-    - run: |
-        sudo snap install ${{ steps.build-snap.outputs.snap }} --devmode
-    # Do some testing with the snap
-    - run: |
-        snap info ros2-talker-listener
-    - uses: actions/upload-artifact@v3
-      with:
-        name: ros2-talker-listener
-        path: ${{ steps.build-snap.outputs.snap }}
+  content-sharing-snap:
+    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@main
+    with:
+      branch-name: content-sharing
+      snap-name: ros2-talker-listener
