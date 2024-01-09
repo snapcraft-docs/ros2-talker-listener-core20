@@ -12,7 +12,38 @@ on:
 
 jobs:
   main-snap:
-    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@main
+    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@F_add_custom_script
     with:
       branch-name: main
       snap-name: ros2-talker-listener
+      test-script: "#!/bin/bash
+
+check_node() {
+    local node_name=$1
+    ros2 node list | grep -q \"/$node_name\"
+    if [ $? -eq 0 ]; then
+        echo \"$node_name is running.\"
+    else
+        echo \"Error: $node_name is not running.\"
+        exit 1
+    fi
+}
+
+check_topic() {
+    local topic_name=$1
+    local pub_count=$(ros2 topic info /$topic_name | grep \"Publisher count:\" | awk '{print $3}')
+    local sub_count=$(ros2 topic info /$topic_name | grep \"Subscription count:\" | awk '{print $3}')
+
+    if [ \"$pub_count\" -gt 0 ] && [ \"$sub_count\" -gt 0 ]; then
+        echo \"$topic_name has publishers and subscribers.\"
+    else
+        echo \"Error: $topic_name has no publishers or subscribers.\"
+        exit 1
+    fi
+}
+
+check_node listener
+check_node talker
+check_topic chatter
+
+echo \"All checks passed successfully.\""
