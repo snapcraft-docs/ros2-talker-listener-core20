@@ -18,7 +18,7 @@ jobs:
       snap-name: ros2-talker-listener
       test-script: "#!/bin/bash
 
-snap install ros2-cli --channel=foxy/beta
+sudo snap install ros2-cli --channel=foxy/beta
 
 check_node() {
     local node_name=$1
@@ -26,7 +26,7 @@ check_node() {
     if [ $? -eq 0 ]; then
         echo \"$node_name is running.\"
     else
-        echo \"Error: $node_name is not running.\"
+        echo \"Error - $node_name is not running.\"
         exit 1
     fi
 }
@@ -39,7 +39,7 @@ check_topic() {
     if [ \"$pub_count\" -gt 0 ] && [ \"$sub_count\" -gt 0 ]; then
         echo \"$topic_name has publishers and subscribers.\"
     else
-        echo \"Error: $topic_name has no publishers or subscribers.\"
+        echo \"Error - $topic_name has no publishers or subscribers.\"
         exit 1
     fi
 }
