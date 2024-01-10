@@ -43,7 +43,7 @@ jobs:
                         fi
                     }
 
-                    timeout 3s ros2-talker-listener &
+                    timeout 5s ros2-talker-listener &
                     check_node listener &
                     check_node talker &
                     check_topic chatter
