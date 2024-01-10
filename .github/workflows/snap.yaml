@@ -12,7 +12,7 @@ on:
 
 jobs:
   main-snap:
-    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@F_add_custom_script
+    uses: ubuntu-robotics/snap_workflows/.github/workflows/build-install-test-snap.yaml@main
     with:
       branch-name: main
       snap-name: ros2-talker-listener
