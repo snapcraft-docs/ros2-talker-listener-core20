@@ -43,9 +43,11 @@ jobs:
                         fi
                     }
 
-                    timeout 5s ros2-talker-listener &
-                    check_node listener &
-                    check_node talker &
+                    ros2-talker-listener &
+                    pid=$!
+                    check_node talker
+                    check_node listener
                     check_topic chatter
-                    wait
+                    kill $pid
+
                     echo "All checks passed successfully."
