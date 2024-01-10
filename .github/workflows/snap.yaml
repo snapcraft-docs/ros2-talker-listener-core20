@@ -16,6 +16,7 @@ jobs:
     with:
       branch-name: main
       snap-name: ros2-talker-listener
+      snap-install-args: --devmode
       test-script: |
                     #!/bin/bash
                     sudo snap install ros2-cli --channel=foxy/beta
