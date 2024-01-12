@@ -19,8 +19,9 @@ jobs:
       snap-install-args: --devmode
       test-script: |
                     #!/bin/bash
+                    snap connect ros2-talker-listener:ros-foxy ros-foxy-ros-base
+
                     sudo snap install ros2-cli --channel=foxy/beta
-                    wait
 
                     check_node() {
                         local node_name=$1
