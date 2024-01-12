@@ -20,7 +20,6 @@ jobs:
       test-script: |
                     #!/bin/bash
                     sudo snap install ros2-cli --channel=foxy/beta
-                    wait
 
                     check_node() {
                         local node_name=$1
