@@ -30,6 +30,7 @@ jobs:
                             echo "$node_name is running."
                         else
                             echo "Error - $node_name is not running."
+                            kill $pid
                             exit 1
                         fi
                     }
@@ -41,6 +42,7 @@ jobs:
                             echo "$topic_name has publishers and subscribers."
                         else
                             echo "Error - $topic_name has no publishers or subscribers."
+                            kill $pid
                             exit 1
                         fi
                     }
